@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Payment Listener</string>
+    <string name="confirm">确定</string>
+    <string name="listener_notification">监听收款通知</string>
+    <string name="please_input_request_address">请输入请求地址</string>
+    <string name="please_input_request_param_name">请输入请求参数名</string>
+    <string name="url_parameter_empty">请求地址或参数为空</string>
+    <string name="url_param">请求地址：%s\n请求参数：%s</string>
+</resources>
