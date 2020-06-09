@@ -52,17 +52,18 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
      * @return true 支付宝/微信消息
      */
     private boolean isPaymentMessage(String packageName) {
-        return !TextUtils.equals("com.eg.android.AlipayGphone", packageName)
-                || !TextUtils.equals("com.tencent.mm", packageName);
+        return TextUtils.equals("com.eg.android.AlipayGphone", packageName)
+                || TextUtils.equals("com.tencent.mm", packageName)
+                || TextUtils.equals("com.tencent.mobileqq", packageName);
     }
 
     private static double parse(String string) {
-        String regEx = "[1-9]\\d*|0\\.\\d\\d元";
+        String regEx = "[1-9]\\d*|0\\.\\d\\d";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(string);
-        if (m.find()) {
+        if ((string.contains("成功收款") || string.contains("微信支付收款"))
+                && m.find()) {
             String s = m.group(0);
-            s = s.substring(4, s.length() - 1);
             try {
                 return Double.parseDouble(s);
             } catch (NumberFormatException e) {
