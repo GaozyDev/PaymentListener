@@ -10,9 +10,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.gzy.paymentlistener.http.Network;
+import com.gzy.paymentlistener.http.RequestBean;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,9 +87,8 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
     }
 
     private void postValue(double money) {
-        Map<String, Double> param = new HashMap<>();
-        param.put(Global.paramName, money);
-        Network.remote().postValue(param).enqueue(new Callback<Object>() {
+        RequestBean requestBean = new RequestBean(money, Global.key);
+        Network.remote().postValue(requestBean).enqueue(new Callback<Object>() {
             @Override
             public void onResponse(@NonNull Call<Object> call, @NonNull Response<Object> response) {
 

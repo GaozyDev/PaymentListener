@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mUrlEt;
 
-    private EditText mParamNameEt;
+    private EditText mKeyEt;
 
     private TextView mUrlTv;
 
@@ -38,31 +38,31 @@ public class MainActivity extends AppCompatActivity {
         Button listenerBtn = findViewById(R.id.monitor_btn);
         mUrlTv = findViewById(R.id.url_tv);
         mUrlEt = findViewById(R.id.url_et);
-        mParamNameEt = findViewById(R.id.param_name_et);
+        mKeyEt = findViewById(R.id.param_name_et);
         Button confirmBtn = findViewById(R.id.confirm_btn);
 
         listenerBtn.setOnClickListener(v -> openNotificationListenSettings());
 
         confirmBtn.setOnClickListener(v -> {
             String url = mUrlEt.getText().toString();
-            String parameterName = mParamNameEt.getText().toString();
-            if (TextUtils.isEmpty(url) || TextUtils.isEmpty(parameterName)) {
+            String key = mKeyEt.getText().toString();
+            if (TextUtils.isEmpty(url) || TextUtils.isEmpty(key)) {
                 Toast.makeText(MainActivity.this, R.string.url_parameter_empty,
                         Toast.LENGTH_SHORT).show();
             } else {
                 Global.url = url;
-                Global.paramName = parameterName;
-                mUrlTv.setText(String.format(getString(R.string.url_param), url, parameterName));
+                Global.key = key;
+                mUrlTv.setText(String.format(getString(R.string.url_param), url, key));
                 SpUtils.putString(MainActivity.this, SpUtils.URL, url);
-                SpUtils.putString(MainActivity.this, SpUtils.PARAM_NAME, parameterName);
+                SpUtils.putString(MainActivity.this, SpUtils.KEY, key);
             }
         });
     }
 
     private void initData() {
         Global.url = SpUtils.getString(this, SpUtils.URL, "");
-        Global.paramName = SpUtils.getString(this, SpUtils.PARAM_NAME, "");
-        mUrlTv.setText(String.format(getString(R.string.url_param), Global.url, Global.paramName));
+        Global.key = SpUtils.getString(this, SpUtils.KEY, "");
+        mUrlTv.setText(String.format(getString(R.string.url_param), Global.url, Global.key));
     }
 
     private void initListener() {

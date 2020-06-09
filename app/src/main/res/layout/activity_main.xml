@@ -33,7 +33,7 @@
         android:id="@+id/param_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/please_input_request_param_name"
+        android:hint="@string/please_input_key"
         android:inputType="text"
         tools:ignore="Autofill" />
 

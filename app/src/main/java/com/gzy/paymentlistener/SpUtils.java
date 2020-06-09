@@ -11,7 +11,7 @@ public class SpUtils {
 
     static final String URL = "sp_url";
 
-    static final String PARAM_NAME = "parameter_name";
+    static final String KEY = "sp_key";
 
     /**
      * 存字符串
