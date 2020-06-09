@@ -75,11 +75,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 是否拥有通知使用权
+     *
+     * @return true 拥有权限
+     */
     public boolean isNotificationListenerEnabled() {
         Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages(this);
         return packageNames.contains(getPackageName());
     }
 
+    /**
+     * 打开通知使用权授权页
+     */
     public void openNotificationListenSettings() {
         try {
             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);

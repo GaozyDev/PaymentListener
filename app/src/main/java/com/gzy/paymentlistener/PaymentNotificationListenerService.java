@@ -57,6 +57,11 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
                 || TextUtils.equals("com.tencent.mobileqq", packageName);
     }
 
+    /**
+     * 从消息中解析出金额
+     * @param string 消息
+     * @return 金额
+     */
     private static double parse(String string) {
         String regEx = "[1-9]\\d*|0\\.\\d\\d";
         Pattern p = Pattern.compile(regEx);
