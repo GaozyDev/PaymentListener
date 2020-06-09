@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -27,22 +28,29 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
         String packageName = sbn.getPackageName();
         String title = extras.getString(Notification.EXTRA_TITLE);
         String text = extras.getString(Notification.EXTRA_TEXT);
-
-        if (isPaymentMessage(packageName)) {
+        if (isPaymentMessage(packageName) && !TextUtils.isEmpty(text)) {
             double money = parse(text);
             if (money != -1) {
                 postValue(money);
             }
         }
+
+        Log.e("gaozy", "Posted packageName:" + packageName + " title:" + title + " text:" + text);
     }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
+        Bundle extras = sbn.getNotification().extras;
+        String packageName = sbn.getPackageName();
+        String title = extras.getString(Notification.EXTRA_TITLE);
+        String text = extras.getString(Notification.EXTRA_TEXT);
+        Log.e("gaozy", "Removed packageName:" + packageName + " title:" + title + " text:" + text);
     }
 
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
+        Log.e("gaozy", "onListenerConnected");
     }
 
     /**
@@ -59,11 +67,12 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
 
     /**
      * 从消息中解析出金额
+     *
      * @param string 消息
      * @return 金额
      */
     private static double parse(String string) {
-        String regEx = "[1-9]\\d*|0\\.\\d\\d";
+        String regEx = "([1-9]\\d*|0)\\.\\d\\d";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(string);
         if ((string.contains("成功收款") || string.contains("微信支付收款"))
