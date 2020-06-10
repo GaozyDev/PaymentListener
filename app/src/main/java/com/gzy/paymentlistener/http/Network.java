@@ -4,6 +4,7 @@ import com.gzy.paymentlistener.Factory;
 import com.gzy.paymentlistener.Global;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -16,10 +17,12 @@ public class Network {
     }
 
     private static Retrofit getRetrofit() {
-        OkHttpClient client = new OkHttpClient();
-        Retrofit.Builder builder = new Retrofit.Builder();
-        return builder.baseUrl(Global.url)
-                .client(client)
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(loggingInterceptor);
+        return new Retrofit.Builder().baseUrl(Global.url)
+                .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create(Factory.getGson()))
                 .build();
     }

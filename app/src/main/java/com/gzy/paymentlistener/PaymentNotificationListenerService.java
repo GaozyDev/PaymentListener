@@ -27,14 +27,14 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
         String packageName = sbn.getPackageName();
         String title = extras.getString(Notification.EXTRA_TITLE);
         String text = extras.getString(Notification.EXTRA_TEXT);
+        Log.i("gaozy", "Posted packageName:" + packageName + " title:" + title + " text:" + text);
+
         if (isPaymentMessage(packageName) && !TextUtils.isEmpty(text)) {
             double money = parse(text);
             if (money != -1) {
                 postValue(money);
             }
         }
-
-        Log.e("gaozy", "Posted packageName:" + packageName + " title:" + title + " text:" + text);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
         String packageName = sbn.getPackageName();
         String title = extras.getString(Notification.EXTRA_TITLE);
         String text = extras.getString(Notification.EXTRA_TEXT);
-        Log.e("gaozy", "Removed packageName:" + packageName + " title:" + title + " text:" + text);
+//        Log.e("gaozy", "Removed packageName:" + packageName + " title:" + title + " text:" + text);
     }
 
     @Override
@@ -60,8 +60,7 @@ public class PaymentNotificationListenerService extends NotificationListenerServ
      */
     private boolean isPaymentMessage(String packageName) {
         return TextUtils.equals("com.eg.android.AlipayGphone", packageName)
-                || TextUtils.equals("com.tencent.mm", packageName)
-                || TextUtils.equals("com.tencent.mobileqq", packageName);
+                || TextUtils.equals("com.tencent.mm", packageName);
     }
 
     /**
