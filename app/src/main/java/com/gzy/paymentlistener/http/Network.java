@@ -36,7 +36,7 @@ public class Network {
                 .build();
 
         // 此处随意设置一个地址，请求时会在 RedirectInterceptor 中重定向
-        return new Retrofit.Builder().baseUrl("http://www.test.com")
+        return new Retrofit.Builder().baseUrl("http://127.0.0.1")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(Factory.getGson()))
                 .build();
