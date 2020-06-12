@@ -6,7 +6,6 @@ import retrofit2.http.POST;
 
 public interface RemoteService {
 
-    // todo URL
-    @POST("/notify/Alipay/MakeQRCode_Notify.aspx")
+    @POST("/")
     Call<Object> postValue(@Body RequestBean requestBean);
 }

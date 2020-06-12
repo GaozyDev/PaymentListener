@@ -1,7 +1,6 @@
 package com.gzy.paymentlistener.http;
 
 import com.gzy.paymentlistener.Factory;
-import com.gzy.paymentlistener.Global;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,6 +21,7 @@ public class Network {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new RedirectInterceptor())
                 .addInterceptor(chain -> {
                     Request original = chain.request();
                     Request.Builder builder = original.newBuilder();
@@ -35,7 +35,8 @@ public class Network {
                 .addInterceptor(loggingInterceptor)
                 .build();
 
-        return new Retrofit.Builder().baseUrl(Global.url)
+        // 此处随意设置一个地址，请求时会在 RedirectInterceptor 中重定向
+        return new Retrofit.Builder().baseUrl("http://www.test.com")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(Factory.getGson()))
                 .build();
